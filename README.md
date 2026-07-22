@@ -76,7 +76,8 @@ npm run install:all
 ```
 
 ### 2. Seed the Database
-Make sure you have MongoDB running locally, then execute:
+Configure your MongoDB Atlas connection string in backend/.env and then run:
+
 ```bash
 npm run seed:backend
 ```
