@@ -181,7 +181,7 @@ All backend integration tests passed successfully using Jest, Supertest, and mon
 ## My AI Usage
 
 ### AI Tools Used
-* Google Gemini (Antigravity Agent)
+* Google Gemini and ChatGPT
 
 ### How they were Used
 * Created the backend architecture, Express configuration, Mongoose schemas, and routes.
