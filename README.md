@@ -134,6 +134,16 @@ npm run test:backend
 * *Admin Inventory Panel*
 
 ---
+## Test Results
+
+All backend integration tests passed successfully using Jest, Supertest, and mongodb-memory-server.
+
+- Test Suites: 2 passed, 2 total
+- Tests: 16 passed, 16 total
+- Authentication API tests: Passed
+- Vehicle Inventory API tests: Passed
+
+![Test Report](screenshots/test-report.png)
 
 ## Deployment Instructions
 
