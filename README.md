@@ -59,8 +59,8 @@ Create a `.env` file in the `/backend` folder with the following properties:
 
 ```env
 PORT=5090
-MONGODB_URI=mongodb+srv://vaibhavsrajputofficial_db_user:8cxIMY6RR7TNqFDL@cluster0.pxugdwy.mongodb.net/car_dealership?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=car-dealership-inventory-super-secret-key-123
+MONGODB_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=1d
 NODE_ENV=development
 ```
