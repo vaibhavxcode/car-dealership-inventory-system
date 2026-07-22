@@ -7,7 +7,7 @@ dotenv.config();
 const app = require('./src/app');
 
 // Database connection
-const DB_URI = process.env.MONGODB_URI || 'mongodb+srv://vaibhavsrajputofficial_db_user:8cxIMY6RR7TNqFDL@cluster0.pxugdwy.mongodb.net/car_dealership?retryWrites=true&w=majority&appName=Cluster0';
+const DB_URI = process.env.MONGODB_URI 
 const PORT = process.env.PORT || 5000;
 const resolveSrvUri = require('./src/utils/dnsResolver');
 
