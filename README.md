@@ -128,10 +128,28 @@ npm run test:backend
 ---
 
 ## Screenshots Section
-*(Placeholders for future application screenshots)*
-* *Login View*
-* *User Catalog Board*
-* *Admin Inventory Panel*
+## Screenshots
+
+### Login Page
+![Login Page](screenshots/login-page.png)
+
+### Registration Page
+![Registration Page](screenshots/register-page.png)
+
+### User Dashboard
+![User Dashboard](screenshots/user-dashboard.png)
+
+### Vehicle Details
+![Vehicle Details](screenshots/vehicle-details.png)
+
+### Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+## Test Results
+
+All backend integration tests passed successfully.
+
+![Test Report](screenshots/test-report.png)
 
 ---
 ## Test Results
