@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const resolveSrvUri = require('../src/utils/dnsResolver');
 require('dotenv').config();
 
-const DB_URI = process.env.MONGODB_URI || 'mongodb+srv://vaibhavsrajputofficial_db_user:8cxIMY6RR7TNqFDL@cluster0.pxugdwy.mongodb.net/car_dealership?retryWrites=true&w=majority&appName=Cluster0';
+const DB_URI = process.env.MONGODB_URI 
 
 const run = async () => {
   try {
