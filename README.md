@@ -167,18 +167,94 @@ All backend integration tests passed successfully using Jest, Supertest, and mon
 
 ![Test Report](screenshots/test-report.png)
 
-## Deployment Instructions
+## Render Deployment Instructions
 
-1. **Production Build:** Build the static asset bundle in the frontend directory:
-   ```bash
-   cd frontend && npm run build
-   ```
-2. **Serve Assets:** Configure the Express backend to serve static assets from the `frontend/dist` directory:
-   ```javascript
-   app.use(express.static(path.join(__dirname, '../../frontend/dist')));
-   ```
-3. **Database Hosting:** Set up a production database instance on MongoDB Atlas and update `MONGODB_URI` environment variable.
-4. **Environment Hosting:** Deploy the backend on cloud services (e.g., Render, Heroku, AWS Elastic Beanstalk) ensuring environmental secrets are configured in the cloud settings dashboard.
+This project is prepared for deployment on **Render** (https://render.com) using either the automated Blueprint specification (`render.yaml`) or manual dashboard configurations.
+
+### Option 1: Automated Deployment via Render Blueprint (Recommended)
+
+Render Blueprints allow you to deploy the entire stack automatically using the `render.yaml` file located in the root of the repository.
+
+1. Push your project repository to GitHub or GitLab.
+2. Go to the **Render Dashboard**, click **New**, and select **Blueprint**.
+3. Connect your repository.
+4. Render will automatically read the `render.yaml` file and configure:
+   - A Web Service for the backend.
+   - A Static Site for the frontend.
+5. In the Render UI, fill in the prompted environment variables:
+   - `MONGODB_URI`: Your production MongoDB Atlas connection string.
+   - `FRONTEND_URL`: The URL of your deployed frontend (you will receive this after the frontend service is created, usually in the format `https://<frontend-service-name>.onrender.com`).
+   - `VITE_API_URL`: The URL of your deployed backend API (usually in the format `https://<backend-service-name>.onrender.com/api`).
+6. Click **Apply** to deploy the services.
+
+---
+
+### Option 2: Manual Deployment
+
+If you prefer to deploy each service manually through the Render Dashboard:
+
+#### A. Backend Web Service
+1. In Render, click **New > Web Service**.
+2. Connect your repository.
+3. Configure the following settings:
+   - **Name:** `car-dealership-backend`
+   - **Environment:** `Node`
+   - **Region:** Choose the region closest to your database
+   - **Root Directory:** `backend`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+4. Add the following **Environment Variables**:
+   - `NODE_ENV`: `production`
+   - `PORT`: `5090`
+   - `MONGODB_URI`: *Your MongoDB Atlas connection string*
+   - `JWT_SECRET`: *A secure random secret key*
+   - `JWT_EXPIRES_IN`: `1d`
+   - `FRONTEND_URL`: *The URL of your deployed frontend (e.g., `https://car-dealership-frontend.onrender.com`)*
+
+#### B. Frontend Static Site
+1. In Render, click **New > Static Site**.
+2. Connect your repository.
+3. Configure the following settings:
+   - **Name:** `car-dealership-frontend`
+   - **Root Directory:** `frontend`
+   - **Build Command:** `npm install && npm run build`
+   - **Publish Directory:** `dist`
+4. Add the following **Environment Variables**:
+   - `VITE_API_URL`: *The URL of your backend service (e.g., `https://car-dealership-backend.onrender.com/api`)*
+5. Configure **Redirect/Rewrite Rules** (required for React Router fallback):
+   - Go to **Redirects/Rewrites** tab for the static site service.
+   - Add a rule:
+     - **Source:** `/*`
+     - **Destination:** `/index.html`
+     - **Action:** `Rewrite`
+
+---
+
+### Required Environment Variables Summary
+
+#### Backend Service
+| Variable Name | Description | Example / Recommended Value |
+| :--- | :--- | :--- |
+| `PORT` | The port the Express server binds to | `5090` (Render defaults to 10000 if not specified, but 5090 matches render.yaml) |
+| `NODE_ENV` | Mode of operation | `production` |
+| `MONGODB_URI` | Connection URI for the MongoDB database | `mongodb+srv://<username>:<password>@cluster0.pxugdwy.mongodb.net/car_dealership` |
+| `JWT_SECRET` | Secret key used to sign and verify JSON Web Tokens | *Any long random secure string* |
+| `JWT_EXPIRES_IN` | Validity duration of the authentication token | `1d` |
+| `FRONTEND_URL` | Deployed URL of your frontend static site (for CORS) | `https://car-dealership-frontend.onrender.com` |
+
+#### Frontend Service
+| Variable Name | Description | Example / Recommended Value |
+| :--- | :--- | :--- |
+| `VITE_API_URL` | Base URL of the backend API (injected at build time) | `https://car-dealership-backend.onrender.com/api` |
+
+---
+
+### MongoDB Atlas Whitelisting
+To allow the Render backend to connect to MongoDB Atlas:
+1. Log in to your **MongoDB Atlas** dashboard.
+2. Go to **Network Access**.
+3. Click **Add IP Address**.
+4. Since Render Web Services on the free plan use dynamic IP addresses, you should whitelist all IPs (`0.0.0.0/0`). Alternatively, if you use a paid Render tier, you can bind static outbound IP addresses and whitelist those.
 
 ---
 
