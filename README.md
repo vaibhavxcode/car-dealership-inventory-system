@@ -258,6 +258,54 @@ To allow the Render backend to connect to MongoDB Atlas:
 
 ---
 
+### Production Admin Seeding
+
+By default, the database is empty in production. Running the full local database seeder (`npm run seed:backend`) is **destructive** because it wipes all existing user and vehicle data.
+
+To safely seed only the admin user without losing any database records, use the provided non-destructive admin seeding script:
+
+```bash
+# Deployed Admin Credentials (Default):
+# Email: admin@dealership.com
+# Password: adminpassword123
+```
+
+You can customize the seeded admin credentials by setting the following environment variables (which fall back to the defaults above):
+* `ADMIN_EMAIL`
+* `ADMIN_PASSWORD`
+* `ADMIN_NAME`
+
+#### How to run the admin seeder on your deployed database:
+
+##### Method 1: Run Locally (Recommended & Easiest)
+You can run the script from your local machine, pointing it directly at your production Atlas cluster:
+```bash
+# From the root directory:
+MONGODB_URI="your_mongodb_atlas_connection_string" npm run seed:admin
+```
+
+##### Method 2: Temporary Render Build Command
+If you cannot run commands locally:
+1. In the Render Dashboard, go to your Backend Web Service settings.
+2. Temporarily change the **Build Command** to:
+   ```bash
+   npm install && npm run seed:admin
+   ```
+3. Trigger a manual deploy.
+4. Check the deploy logs to confirm you see:
+   `✅ Admin user created successfully.`
+5. Once complete, change the **Build Command** back to `npm install` to avoid redundant checks on future deployments.
+
+##### Method 3: Render Web Shell (Paid Services Only)
+1. Go to your Backend Web Service page in Render.
+2. Click **Shell** in the left sidebar.
+3. Run the following command:
+   ```bash
+   npm run seed:admin
+   ```
+
+---
+
 ## My AI Usage
 
 ### AI Tools Used
