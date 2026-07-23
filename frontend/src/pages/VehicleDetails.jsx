@@ -21,7 +21,7 @@ const VehicleDetails = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await api.get('/vehicles');
+        const response = await api.get('/api/vehicles');
         const found = response.data.data.vehicles.find((v) => v._id === id);
         
         if (found) {
@@ -41,7 +41,7 @@ const VehicleDetails = () => {
 
   const handlePurchase = async () => {
     try {
-      const response = await api.post(`/vehicles/${vehicle._id}/purchase`);
+      const response = await api.post(`/api/vehicles/${vehicle._id}/purchase`);
       
       setVehicle((prev) => ({
         ...prev,

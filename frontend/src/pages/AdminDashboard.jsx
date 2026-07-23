@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.get('/vehicles');
+      const response = await api.get('/api/vehicles');
       setVehicles(response.data.data.vehicles);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch vehicles');
@@ -112,13 +112,13 @@ const AdminDashboard = () => {
     try {
       if (currentVehicle) {
         // Edit Mode
-        const response = await api.put(`/vehicles/${currentVehicle._id}`, payload);
+        const response = await api.put(`/api/vehicles/${currentVehicle._id}`, payload);
         const updated = response.data.data.vehicle;
         setVehicles(vehicles.map((v) => (v._id === currentVehicle._id ? updated : v)));
         showToast('success', 'Vehicle updated successfully!');
       } else {
         // Add Mode
-        const response = await api.post('/vehicles', payload);
+        const response = await api.post('/api/vehicles', payload);
         const created = response.data.data.vehicle;
         setVehicles([created, ...vehicles]);
         showToast('success', 'Vehicle added successfully!');
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await api.post(`/vehicles/${currentVehicle._id}/restock`, { quantity: amount });
+      const response = await api.post(`/api/vehicles/${currentVehicle._id}/restock`, { quantity: amount });
       const updated = response.data.data.vehicle;
       
       setVehicles(vehicles.map((v) => (v._id === currentVehicle._id ? updated : v)));
@@ -163,7 +163,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      await api.delete(`/vehicles/${vehicleId}`);
+      await api.delete(`/api/vehicles/${vehicleId}`);
       setVehicles(vehicles.filter((v) => v._id !== vehicleId));
       showToast('success', 'Vehicle deleted successfully!');
     } catch (err) {

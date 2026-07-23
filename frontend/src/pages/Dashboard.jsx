@@ -45,7 +45,7 @@ const Dashboard = () => {
       if (minPrice) params.minPrice = minPrice;
       if (maxPrice) params.maxPrice = maxPrice;
 
-      const response = await api.get('/vehicles/search', { params });
+      const response = await api.get('/api/vehicles/search', { params });
       const allVehicles = response.data.data.vehicles;
       setVehicles(allVehicles);
 

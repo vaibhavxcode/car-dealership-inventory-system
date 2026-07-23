@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setError(null);
     try {
-      const response = await api.post('/auth/login', { email, password });
+      const response = await api.post('/api/auth/login', { email, password });
       const { token, data } = response.data;
 
       localStorage.setItem('token', token);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     setError(null);
     try {
-      const response = await api.post('/auth/register', { name, email, password });
+      const response = await api.post('/api/auth/register', { name, email, password });
       const { token, data } = response.data;
 
       localStorage.setItem('token', token);
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Best effort API call to logout, ignore errors as it's client-cleared
-      await api.post('/auth/logout');
+      await api.post('/api/auth/logout');
     } catch (e) {
       // Ignored
     }
