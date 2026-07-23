@@ -309,7 +309,7 @@ If you cannot run commands locally:
 ## My AI Usage
 
 ### AI Tools Used
-* Google Gemini and ChatGPT
+* ChatGPT and Google Gemini
 
 ### How they were Used
 * Created the backend architecture, Express configuration, Mongoose schemas, and routes.
