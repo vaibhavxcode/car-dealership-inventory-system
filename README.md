@@ -130,6 +130,10 @@ npm run test:backend
 ## Screenshots Section
 ## Screenshots
 
+### Homepage
+![Homepage](screenshots/homepage.png)
+
+
 ### Login Page
 ![Login Page](screenshots/login-page.png)
 
